@@ -25,9 +25,15 @@ public class MeserosServiceImp {
 		String msg = "";
 		for (Mesero m : meserosRepo.findAll()) {
 			if (m.getIdMesero().equals(mesero.getIdMesero())) {
-				msg = "Id de mesero repetido";
-				break;
+				msg += "Id de mesero repetido";
 			}
+			if (m.getNombre().equalsIgnoreCase(mesero.getNombre()) &&
+				m.getApp().equalsIgnoreCase(mesero.getApp()) &&
+				m.getApm().equalsIgnoreCase(mesero.getApm())) {
+				msg += " Nombre de mesero repetido";
+			}
+			if (!msg.isEmpty())
+				break;
 		}
 		if (msg.isEmpty())
 			meserosRepo.save(mesero);
