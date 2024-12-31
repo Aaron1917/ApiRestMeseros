@@ -61,7 +61,7 @@ public class MesasWebService {
 	public ResponseEntity<?> eliminar(@RequestBody Mesas mesa) {
 		String res = imp.eliminar(mesa.getIdMesa());
 		if (res.isEmpty())
-			return new ResponseEntity<>(mesa, HttpStatus.OK);
+			return new ResponseEntity<>("Mesa eliminada", HttpStatus.OK);
 		return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
 	}
 }

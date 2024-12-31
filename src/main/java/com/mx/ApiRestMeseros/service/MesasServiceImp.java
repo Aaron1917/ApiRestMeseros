@@ -24,12 +24,12 @@ public class MesasServiceImp {
 	}
 
 	@Transactional
-	public String guardar(Mesas mesa){
+	public String guardar(Mesas mesa) {
 		String msg = "";
-		if(meserosImp.buscar(mesa.getMesero().getIdMesero()) == null)
+		if (meserosImp.buscar(mesa.getMesero().getIdMesero()) == null)
 			msg += "El ID mesero no existe";
-			
-		for (Mesas m: mesasRepo.findAll()) {
+
+		for (Mesas m : mesasRepo.findAll()) {
 			if (m.getIdMesa().equals(mesa.getIdMesa()))
 				msg += " El ID de mesa se repite";
 			if (m.getNumMesa().equals(mesa.getNumMesa()))
@@ -41,36 +41,40 @@ public class MesasServiceImp {
 			mesasRepo.save(mesa);
 		return msg;
 	}
-	
+
 	@Transactional(readOnly = true)
 	public Mesas buscar(Long id) {
 		return mesasRepo.findById(id).orElse(null);
 	}
-	
+
 	@Transactional
-	public String editar(Mesas mesa){
+	public String editar(Mesas mesa) {
 		String msg = "";
-		if(meserosImp.buscar(mesa.getMesero().getIdMesero()) == null)
+		if (meserosImp.buscar(mesa.getMesero().getIdMesero()) == null)
 			msg += "El ID mesero no existe";
-			
-		for (Mesas m: mesasRepo.findAll()) {
-			if (m.getIdMesa().equals(mesa.getIdMesa()))
-				msg += " El ID de mesa se repite";
-			if (!msg.equals("El ID mesero no existe") && !msg.isEmpty())
+		String msg2 = " El ID de mesa no existe";
+		for (Mesas m : mesasRepo.findAll()) {
+			// si existe la mesa id
+			if (m.getIdMesa().equals(mesa.getIdMesa())) {
+				msg2 = "";
 				break;
+			}
 		}
+		msg += msg2;
 		if (msg.isEmpty())
 			mesasRepo.save(mesa);
 		return msg;
 	}
-	
+
 	@Transactional
-	public String eliminar(Long id){
-		String msg = "";
-			
-		for (Mesas m: mesasRepo.findAll()) {
-			if (m.getIdMesa().equals(id))
-				msg += " El ID de mesa se repite"; break;
+	public String eliminar(Long id) {
+		String msg = "El ID de mesa no existe";
+
+		for (Mesas m : mesasRepo.findAll()) {
+			if (m.getIdMesa().equals(id)) {
+				msg = "";
+				break;
+			}
 		}
 		if (msg.isEmpty())
 			mesasRepo.deleteById(id);

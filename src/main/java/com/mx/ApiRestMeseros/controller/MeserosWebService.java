@@ -61,7 +61,7 @@ public class MeserosWebService {
 	public ResponseEntity<?> eliminar(@RequestBody Mesero mesero) {
 		String res = imp.eliminar(mesero.getIdMesero());
 		if (res.isEmpty())
-			return new ResponseEntity<>(mesero, HttpStatus.OK);
+			return new ResponseEntity<>("Mesero eliminado", HttpStatus.OK);
 		return new ResponseEntity<>(res, HttpStatus.NOT_FOUND);
 	}
 }
