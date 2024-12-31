@@ -14,23 +14,22 @@ public class MeserosServiceImp {
 
 	@Autowired
 	MeserosRepository meserosRepo;
-	
+
 	@Transactional(readOnly = true)
-	public List<Mesero> listar(){
+	public List<Mesero> listar() {
 		return meserosRepo.findAll();
 	}
-	
-	@Transactional(readOnly = true)
-	public String guardar(Mesero mesero){
+
+	@Transactional
+	public String guardar(Mesero mesero) {
 		String msg = "";
-		for (Mesero m:meserosRepo.findAll()) {
+		for (Mesero m : meserosRepo.findAll()) {
 			if (m.getIdMesero().equals(mesero.getIdMesero())) {
 				msg = "Id de mesero repetido";
 				break;
 			}
-			if (m.getNombre().equalsIgnoreCase(mesero.getNombre()) &&
-				m.getApm().equalsIgnoreCase(mesero.getApp()) && 
-				m.getApm().equalsIgnoreCase(mesero.getApm())) {
+			if (m.getNombre().equalsIgnoreCase(mesero.getNombre()) && m.getApm().equalsIgnoreCase(mesero.getApp())
+					&& m.getApm().equalsIgnoreCase(mesero.getApm())) {
 				msg = "Nombre del mesero repetido";
 				break;
 			}
@@ -39,16 +38,16 @@ public class MeserosServiceImp {
 			meserosRepo.save(mesero);
 		return msg;
 	}
-	
+
 	@Transactional(readOnly = true)
-	public Mesero buscar(long id){
+	public Mesero buscar(long id) {
 		return meserosRepo.findById(id).orElse(null);
 	}
-	
+
 	@Transactional
 	public String editar(Mesero mesero) {
 		String msg = "";
-		for (Mesero m:meserosRepo.findAll()) {
+		for (Mesero m : meserosRepo.findAll()) {
 			if (!m.getIdMesero().equals(mesero.getIdMesero())) {
 				msg = "No existe un mesero con esa ID";
 			}
@@ -57,17 +56,17 @@ public class MeserosServiceImp {
 			meserosRepo.save(mesero);
 		return msg;
 	}
-	
+
 	@Transactional
-	public String elimiar(Mesero mesero) {
+	public String eliminar(long id) {
 		String msg = "";
-		for (Mesero m:meserosRepo.findAll()) {
-			if (!m.getIdMesero().equals(mesero.getIdMesero())) {
+		for (Mesero m : meserosRepo.findAll()) {
+			if (!m.getIdMesero().equals(id)) {
 				msg = "No existe un mesero con esa ID";
 			}
 		}
 		if (msg.isEmpty())
-			meserosRepo.delete(mesero);
+			meserosRepo.deleteById(id);
 		return msg;
 	}
 }
