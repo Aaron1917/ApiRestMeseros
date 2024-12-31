@@ -21,14 +21,14 @@ FOREIGN KEY(ID_MESERO) REFERENCES MESERO(ID));
  * */
 
 @Entity
-@Table
+@Table(name = "MESAS")
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 public class Mesas {
 	
 	@Id
-	@Column(name = "Mesa")
+	@Column(name = "ID")
 	private Long idMesa;
 	
 	@Column(name = "NUM_MESA")

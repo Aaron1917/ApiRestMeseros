@@ -45,7 +45,7 @@ public class Mesero {
 	private String apm;
 	
 	@Column(name = "SUELDO")
-	private double sueldo;
+	private Double sueldo;
 	
 	//Cardinalidad
 	@OneToMany(mappedBy = "mesero", cascade = CascadeType.ALL)

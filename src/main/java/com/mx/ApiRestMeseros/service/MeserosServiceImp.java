@@ -28,11 +28,6 @@ public class MeserosServiceImp {
 				msg = "Id de mesero repetido";
 				break;
 			}
-			if (m.getNombre().equalsIgnoreCase(mesero.getNombre()) && m.getApm().equalsIgnoreCase(mesero.getApp())
-					&& m.getApm().equalsIgnoreCase(mesero.getApm())) {
-				msg = "Nombre del mesero repetido";
-				break;
-			}
 		}
 		if (msg.isEmpty())
 			meserosRepo.save(mesero);
@@ -46,10 +41,11 @@ public class MeserosServiceImp {
 
 	@Transactional
 	public String editar(Mesero mesero) {
-		String msg = "";
+		String msg = "Id de mesero no encontrada";
 		for (Mesero m : meserosRepo.findAll()) {
-			if (!m.getIdMesero().equals(mesero.getIdMesero())) {
-				msg = "No existe un mesero con esa ID";
+			if (m.getIdMesero().equals(mesero.getIdMesero())) {
+				msg = "";
+				break;
 			}
 		}
 		if (msg.isEmpty())
@@ -59,10 +55,11 @@ public class MeserosServiceImp {
 
 	@Transactional
 	public String eliminar(long id) {
-		String msg = "";
+		String msg = "No existe un mesero con esa ID";
 		for (Mesero m : meserosRepo.findAll()) {
-			if (!m.getIdMesero().equals(id)) {
-				msg = "No existe un mesero con esa ID";
+			if (m.getIdMesero().equals(id)) {
+				msg = "";
+				break;
 			}
 		}
 		if (msg.isEmpty())
